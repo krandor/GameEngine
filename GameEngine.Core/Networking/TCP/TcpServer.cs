@@ -34,6 +34,7 @@ namespace GameEngine.Core.Networking.TCP
             {
                 TcpClient client = tcpListener.AcceptTcpClient();
                 Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
+				clientThread.Start(client);
             }
         }
 

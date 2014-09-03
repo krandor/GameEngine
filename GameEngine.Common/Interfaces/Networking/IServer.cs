@@ -10,5 +10,7 @@ namespace GameEngine.Common.Interfaces.Networking
     {
         void StartListeningForClients();
         void StopListeningForClients();
+		void SendToClients();
+		void SendToClient(IConnection connection);
     }
 }

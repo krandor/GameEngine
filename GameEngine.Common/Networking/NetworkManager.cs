@@ -8,13 +8,13 @@ using GameEngine.Common.Interfaces.Networking;
 
 namespace GameEngine.Common.Networking
 {
-    public class NetworkManager : INetworkManager
+    public class ServerManager : IServerManager
     {
         public List<IConnection> Connections { get; set; }
 
         private IServer _server;
 
-        public NetworkManager(IServer server)
+        public ServerManager(IServer server)
         {
             _server = server;
         }
@@ -33,8 +33,8 @@ namespace GameEngine.Common.Networking
 
         public event NetworkHandlers.ConnectionHandler OnDisconnect;
 
-        public event NetworkHandlers.MessageHandler OnMessageRecieved;
+		public event NetworkHandlers.ConnectionHandler OnMessageRecieved;
 
-        public event NetworkHandlers.MessageHandler OnMessageSent;
+		public event NetworkHandlers.ConnectionHandler OnMessageSent;
     }
 }

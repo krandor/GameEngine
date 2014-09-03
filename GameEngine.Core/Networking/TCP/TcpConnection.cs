@@ -10,7 +10,7 @@ namespace GameEngine.Core.Networking
 {
     public class TcpConnection : IConnection
     {
-        public EndPoint Source { get; set; }
-        public string Message { get; set; }
+		public DateTime ConnectedAt {get;set;}
+		public IPacket Message { get; set; }
     }
 }

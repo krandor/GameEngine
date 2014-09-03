@@ -11,6 +11,8 @@
     <AssemblyName>GameEngine.Logic</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,8 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Networking\NetworkLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Networking\ServerLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Client\" />
@@ -48,11 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine.Common\GameEngine.Common.csproj">
-      <Project>{314fb35c-c6e0-464b-a2df-87393957d406}</Project>
+      <Project>{314FB35C-C6E0-464B-A2DF-87393957D406}</Project>
       <Name>GameEngine.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\GameEngine.Core\GameEngine.Core.csproj">
-      <Project>{ef509b71-bf13-47c6-8b8b-6ab964f5b793}</Project>
+      <Project>{EF509B71-BF13-47C6-8B8B-6AB964F5B793}</Project>
       <Name>GameEngine.Core</Name>
     </ProjectReference>
   </ItemGroup>

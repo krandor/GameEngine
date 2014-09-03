@@ -9,7 +9,7 @@ namespace GameEngine.Common.Interfaces.Networking
 {
     public interface IConnection
     {
-        EndPoint Source { get; set; }
-        string Message { get; set; }
+		DateTime ConnectedAt {get;set;}
+		IPacket Message { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using GameEngine.Common.Interfaces;
+using GameEngine.Common.Interfaces.Logic;
 using GameEngine.Common.Interfaces.Networking;
 using GameEngine.Common.Networking;
 
@@ -14,14 +14,14 @@ namespace GameEngine.Core.Networking.TCP
 {
     public class TcpServer : IServer
     {
-        INetworkLogic _nLogic;
+        IServerLogic _sLogic;
         TcpListener tcpListener;
         Thread listenThread;
         static bool _running;
 
-        public TcpServer(INetworkLogic nLogic)
+        public TcpServer(IServerLogic sLogic)
         {
-            _nLogic = nLogic;
+            _sLogic = sLogic;
             tcpListener = new TcpListener(IPAddress.Any, 3000);
             listenThread = new Thread(new ThreadStart(StartListening));
         }
@@ -69,30 +69,22 @@ namespace GameEngine.Core.Networking.TCP
 
             if (!error)
             {
+				TcpPacket packet = new TcpPacket
+				{
+					Source = tcpClient.Client.RemoteEndPoint,
+					Destination = tcpClient.Client.LocalEndPoint,
+					Package = new TcpPackage
+					{
+						Contents = stringMessage.ToString(),
+						Size = stringMessage.Length
+					}
+				};
+
                 TcpConnection connection = new TcpConnection();
-                connection.Source = tcpClient.Client.RemoteEndPoint;
-                connection.Message = stringMessage.ToString();
-
-                if (!_nLogic.Manager.Connections.Contains(connection))
-                {
-                    _nLogic.OnConnect(connection);
-                }
-                else
-                {
-                    TcpPacket packet = new TcpPacket
-                    {
-                        Source = tcpClient.Client.RemoteEndPoint,
-                        Destination = tcpClient.Client.LocalEndPoint,
-                        Package = new TcpPackage
-                        {
-                            Contents = stringMessage.ToString(),
-                            Size = stringMessage.Length
-                        }
-                    };
-
-                    _nLogic.OnMessageRecieved(packet);
-                }
-
+				connection.ConnectedAt = DateTime.Now;
+				connection.Message = packet;
+				_sLogic.OnConnect(connection);
+				_sLogic.OnMessageRecieved(connection);
             }
         }
 
@@ -105,5 +97,15 @@ namespace GameEngine.Core.Networking.TCP
         {
             _running = false;
         }
+
+		public void SendToClients()
+		{
+
+		}
+
+		public void SendToClient(IConnection connection)
+		{
+		
+		}
     }
 }

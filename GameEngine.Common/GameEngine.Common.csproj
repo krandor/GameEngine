@@ -11,6 +11,8 @@
     <AssemblyName>GameEngine.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,14 +42,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\Networking\NetworkHandlers.cs" />
-    <Compile Include="Interfaces\INetworkLogic.cs" />
     <Compile Include="Interfaces\Networking\IConnection.cs" />
-    <Compile Include="Interfaces\Networking\INetworkManager.cs" />
     <Compile Include="Interfaces\Networking\IPackage.cs" />
     <Compile Include="Interfaces\Networking\IPacket.cs" />
     <Compile Include="Interfaces\Networking\IServer.cs" />
     <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
+    <Compile Include="Interfaces\Logic\IServerLogic.cs" />
+    <Compile Include="Interfaces\Networking\IServerManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -58,4 +61,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Interfaces\Logic\" />
+    <Folder Include="Interfaces\Configuration\" />
+  </ItemGroup>
 </Project>

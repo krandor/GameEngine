@@ -7,7 +7,7 @@ using GameEngine.Common.EventHandlers.Networking;
 
 namespace GameEngine.Common.Interfaces.Networking
 {
-    public interface INetworkManager
+    public interface IServerManager
     {
         List<IConnection> Connections { get; set; }
 
@@ -15,7 +15,7 @@ namespace GameEngine.Common.Interfaces.Networking
         void StopListener();        
         event NetworkHandlers.ConnectionHandler OnConnect;
         event NetworkHandlers.ConnectionHandler OnDisconnect;
-        event NetworkHandlers.MessageHandler OnMessageRecieved;
-        event NetworkHandlers.MessageHandler OnMessageSent;
+		event NetworkHandlers.ConnectionHandler OnMessageRecieved;
+		event NetworkHandlers.ConnectionHandler OnMessageSent;
     }
 }

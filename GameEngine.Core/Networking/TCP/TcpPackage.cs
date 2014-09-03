@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using GameEngine.Common.Interfaces.Networking;
 
-namespace GameEngine.Common.ServerObjects
+namespace GameEngine.Core.Networking.TCP
 {
-    public class ServerPackage : IPackage
+    public class TcpPackage : IPackage
     {
         public string Contents { get; set; }
+
         public int Size { get; set; }
+        
     }
 }

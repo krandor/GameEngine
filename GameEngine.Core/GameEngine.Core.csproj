@@ -39,10 +39,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Networking\TCP\TcpConnection.cs" />
+    <Compile Include="Networking\TCP\TcpPackage.cs" />
+    <Compile Include="Networking\TCP\TcpPacket.cs" />
+    <Compile Include="Networking\TCP\TcpServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Networking\" />
+    <Folder Include="Networking\UDP\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngine.Common\GameEngine.Common.csproj">
+      <Project>{314fb35c-c6e0-464b-a2df-87393957d406}</Project>
+      <Name>GameEngine.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

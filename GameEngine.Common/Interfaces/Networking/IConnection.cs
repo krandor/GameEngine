@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace GameEngine.Common.Interfaces.Networking
 {
-    public interface IPacket
+    public interface IConnection
     {
         EndPoint Source { get; set; }
-        EndPoint Destination { get; set; }
-        IPackage Package { get; set; }
+        string Message { get; set; }
     }
 }

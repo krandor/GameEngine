@@ -39,16 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClientObjects\ClientPackage.cs" />
+    <Compile Include="EventHandlers\Networking\NetworkHandlers.cs" />
+    <Compile Include="Interfaces\INetworkLogic.cs" />
+    <Compile Include="Interfaces\Networking\IConnection.cs" />
+    <Compile Include="Interfaces\Networking\INetworkManager.cs" />
     <Compile Include="Interfaces\Networking\IPackage.cs" />
     <Compile Include="Interfaces\Networking\IPacket.cs" />
-    <Compile Include="Networking\TCP\TcpPacket.cs" />
+    <Compile Include="Interfaces\Networking\IServer.cs" />
+    <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServerObjects\ServerPackage.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Networking\UDP\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

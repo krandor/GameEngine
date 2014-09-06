@@ -11,6 +11,7 @@ using GameEngine.Common.Interfaces.Networking;
 using GameEngine.Common.Networking;
 using GameEngine.Common.Interfaces.Configuration;
 using GameEngine.Common.EventHandlers.Networking;
+using System.Web.Script.Serialization;
 
 namespace GameEngine.Core.Networking.TCP
 {
@@ -57,9 +58,10 @@ namespace GameEngine.Core.Networking.TCP
         private void HandleClient(object client)
         {
             TcpClient tcpClient = (TcpClient)client;
-            bool error = false;
+        	NetworkStream clientStream = tcpClient.GetStream();
+			TcpPackage package = null;
 
-            NetworkStream clientStream = tcpClient.GetStream();
+			bool error = false;
             int bytesRead;
             byte[] message = new byte[tcpClient.ReceiveBufferSize];
            
@@ -72,11 +74,9 @@ namespace GameEngine.Core.Networking.TCP
                 try
                 {
 					bytesRead = clientStream.Read(message, 0, tcpClient.ReceiveBufferSize);
-
-					//clientStream.Write(message,0, tcpClient.ReceiveBufferSize);
-
 					strMessage = encoder.GetString(message, 0, bytesRead);
-					//Console.WriteLine("Read Message from Stream: " + strMessage);
+					var ser = new JavaScriptSerializer();
+					package = ser.Deserialize<TcpPackage>(strMessage);
                 }
                 catch
                 {
@@ -93,11 +93,7 @@ namespace GameEngine.Core.Networking.TCP
 					{
 						Source = (IPEndPoint)tcpClient.Client.RemoteEndPoint,
 						Destination = (IPEndPoint)tcpClient.Client.LocalEndPoint,
-						Package = new TcpPackage
-						{
-							Contents = strMessage,
-							Size = strMessage.Length
-						}
+						Package = package
 					};
 
 					OnMessageRecieved (packet);

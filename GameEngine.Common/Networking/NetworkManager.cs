@@ -49,12 +49,18 @@ namespace GameEngine.Common.Networking
 			Console.WriteLine (String.Format ("Connection from {0} sent the following message: {1}", packet.Source.ToString(),packet.Package.Contents));
 			foreach (var connection in Connections) 
 			{
-				if (connection.Client != null) {
-					TcpClient c = (TcpClient)connection.Client;
-					var stream = c.GetStream ();
-					ASCIIEncoding encoder = new ASCIIEncoding();
-					byte[] buffer = encoder.GetBytes(packet.Package.Contents);
-					stream.Write (buffer, 0, buffer.Length);
+				if (
+					connection.Source.Address.ToString () != packet.Source.Address.ToString ()
+					&&
+					connection.Source.Port.ToString () != packet.Source.Port.ToString ()
+					) {
+					if (connection.Client != null) {
+						TcpClient c = (TcpClient)connection.Client;
+						var stream = c.GetStream ();
+						ASCIIEncoding encoder = new ASCIIEncoding ();
+						byte[] buffer = encoder.GetBytes (packet.Package.Contents);
+						stream.Write (buffer, 0, buffer.Length);
+					}
 				}
 			}
 		}

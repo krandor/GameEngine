@@ -9,6 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>GameEngine.TestHarness.Client</RootNamespace>
     <AssemblyName>GameEngine.TestHarness.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,10 +31,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngine.Core\GameEngine.Core.csproj">
+      <Project>{EF509B71-BF13-47C6-8B8B-6AB964F5B793}</Project>
+      <Name>GameEngine.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameEngine.Common\GameEngine.Common.csproj">
+      <Project>{314FB35C-C6E0-464B-A2DF-87393957D406}</Project>
+      <Name>GameEngine.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

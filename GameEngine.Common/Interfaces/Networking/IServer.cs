@@ -15,7 +15,6 @@ namespace GameEngine.Common.Interfaces.Networking
 		event NetworkHandlers.MessageHandler OnMessageSent;
         void StartListeningForClients();
         void StopListeningForClients();
-		void SendToClients();
-		void SendToClient(IConnection connection);
+        void Send(object client, IPacket packet);
     }
 }

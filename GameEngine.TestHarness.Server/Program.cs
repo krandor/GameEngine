@@ -1,8 +1,6 @@
-using System;
 using System.Net;
 using GameEngine.Common;
 using GameEngine.Core.Networking.TCP;
-using GameEngine.Common.Networking;
 using GameEngine.Logic.Networking;
 
 namespace GameEngine.TestHarness.Server
@@ -17,7 +15,7 @@ namespace GameEngine.TestHarness.Server
 			//config.IP = IPAddress.Parse("127.0.0.1");
 
 			TcpServer server = new TcpServer (config);
-			ServerManager manager = new ServerManager (server);
+			TcpManager manager = new TcpManager (server);
 			ServerLogic logic = new ServerLogic (manager);
 
 			logic.StartServer ();

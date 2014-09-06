@@ -42,6 +42,7 @@
     <Reference Include="System.Web.Extensions" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Networking\TCP\TcpManager.cs" />
     <Compile Include="Networking\TCP\TcpConnection.cs" />
     <Compile Include="Networking\TCP\TcpPackage.cs" />
     <Compile Include="Networking\TCP\TcpPacket.cs" />

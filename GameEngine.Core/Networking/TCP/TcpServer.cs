@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using GameEngine.Common.Interfaces.Logic;
-using GameEngine.Common.Interfaces.Networking;
-using GameEngine.Common.Networking;
-using GameEngine.Common.Interfaces.Configuration;
-using GameEngine.Common.EventHandlers.Networking;
 using System.Web.Script.Serialization;
+using GameEngine.Common.EventHandlers.Networking;
+using GameEngine.Common.Interfaces.Configuration;
+using GameEngine.Common.Interfaces.Networking;
 
 namespace GameEngine.Core.Networking.TCP
 {
@@ -22,10 +17,10 @@ namespace GameEngine.Core.Networking.TCP
         Thread listenThread;
         static bool _running;
 
-		public event NetworkHandlers.ConnectionHandler OnConnect;
-		public event NetworkHandlers.ConnectionHandler OnDisconnect;
-		public event NetworkHandlers.MessageHandler OnMessageRecieved;
-		public event NetworkHandlers.MessageHandler OnMessageSent;
+        public event NetworkHandlers.ConnectionHandler OnConnect;
+        public event NetworkHandlers.ConnectionHandler OnDisconnect;
+        public event NetworkHandlers.MessageHandler OnMessageRecieved;
+        public event NetworkHandlers.MessageHandler OnMessageSent;
 
         public TcpServer(IConfiguration sConfig)
         {
@@ -42,63 +37,88 @@ namespace GameEngine.Core.Networking.TCP
             {
                 TcpClient client = tcpListener.AcceptTcpClient();
 
-				TcpConnection connection = new TcpConnection{
-					ConnectedAt = DateTime.Now,
-					Source = (IPEndPoint)client.Client.RemoteEndPoint,
-					Client = client
-				};
+                TcpConnection connection = new TcpConnection
+                {
+                    ConnectedAt = DateTime.Now,
+                    Source = (IPEndPoint)client.Client.RemoteEndPoint,
+                    Client = client
+                };
 
-				OnConnect (connection);
+                OnConnect(connection);
 
                 Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
-				clientThread.Start(client);
+                clientThread.Start(client);
+            }
+        }
+
+        public void Send(object client, IPacket packet)
+        {
+            TcpClient tcpClient = (TcpClient)client;
+            using (var stream = tcpClient.GetStream())
+            {
+                var ser = new JavaScriptSerializer();
+                var json = ser.Serialize(packet.Package);
+
+                ASCIIEncoding encoder = new ASCIIEncoding();
+                byte[] buffer = encoder.GetBytes(json);
+
+                stream.Write(buffer, 0, buffer.Length);
+                OnMessageSent(packet);
             }
         }
 
         private void HandleClient(object client)
         {
             TcpClient tcpClient = (TcpClient)client;
-        	NetworkStream clientStream = tcpClient.GetStream();
-			TcpPackage package = null;
+            NetworkStream clientStream = tcpClient.GetStream();
+            TcpPackage package = null;
 
-			bool error = false;
+            bool error = false;
             int bytesRead;
             byte[] message = new byte[tcpClient.ReceiveBufferSize];
-           
-			ASCIIEncoding encoder = new ASCIIEncoding();
+
+            ASCIIEncoding encoder = new ASCIIEncoding();
 
             while (true)
             {
                 bytesRead = 0;
-				string strMessage = "";
+                string strMessage = "";
                 try
                 {
-					bytesRead = clientStream.Read(message, 0, tcpClient.ReceiveBufferSize);
-					strMessage = encoder.GetString(message, 0, bytesRead);
-					var ser = new JavaScriptSerializer();
-					package = ser.Deserialize<TcpPackage>(strMessage);
+                    bytesRead = clientStream.Read(message, 0, tcpClient.ReceiveBufferSize);
+                    strMessage = encoder.GetString(message, 0, bytesRead);
+                    var ser = new JavaScriptSerializer();
+                    package = ser.Deserialize<TcpPackage>(strMessage);
                 }
                 catch
                 {
-                    error = true;
+                    error = true;                  
                     break;
                 }
 
                 if (bytesRead == 0)
-                    break;                
-               
-				if (!error)
-				{
-					TcpPacket packet = new TcpPacket
-					{
-						Source = (IPEndPoint)tcpClient.Client.RemoteEndPoint,
-						Destination = (IPEndPoint)tcpClient.Client.LocalEndPoint,
-						Package = package
-					};
+                    break;
 
-					OnMessageRecieved (packet);
-				}
+                if (!error)
+                {
+                    TcpPacket packet = new TcpPacket
+                    {
+                        Source = (IPEndPoint)tcpClient.Client.RemoteEndPoint,
+                        Destination = (IPEndPoint)tcpClient.Client.LocalEndPoint,
+                        Package = package
+                    };
+
+                    OnMessageRecieved(packet);
+                }
             }
+            TcpConnection connection = new TcpConnection
+            {
+                ConnectedAt = DateTime.Now,
+                Source = (IPEndPoint)tcpClient.Client.RemoteEndPoint,
+                Client = client
+            };
+
+            OnDisconnect(connection);
         }
 
         public void StartListeningForClients()
@@ -110,15 +130,5 @@ namespace GameEngine.Core.Networking.TCP
         {
             _running = false;
         }
-
-		public void SendToClients()
-		{
-
-		}
-
-		public void SendToClient(IConnection connection)
-		{
-		
-		}
     }
 }

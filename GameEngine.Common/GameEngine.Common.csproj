@@ -46,14 +46,15 @@
     <Compile Include="Interfaces\Networking\IPackage.cs" />
     <Compile Include="Interfaces\Networking\IPacket.cs" />
     <Compile Include="Interfaces\Networking\IServer.cs" />
-    <Compile Include="Networking\NetworkManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\Configuration\IConfiguration.cs" />
     <Compile Include="Interfaces\Logic\IServerLogic.cs" />
     <Compile Include="Interfaces\Networking\IServerManager.cs" />
     <Compile Include="Configuration\ServerConfiguration.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Networking\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -62,9 +63,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Interfaces\Logic\" />
-    <Folder Include="Interfaces\Configuration\" />
-    <Folder Include="Configuration\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

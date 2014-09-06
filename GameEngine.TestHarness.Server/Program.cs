@@ -13,7 +13,8 @@ namespace GameEngine.TestHarness.Server
 		{
 			ServerConfiguration config = new ServerConfiguration ();
 			config.Port = 3000;
-			config.IP = IPAddress.Parse("127.0.0.1");
+			config.IP = IPAddress.Any;
+			//config.IP = IPAddress.Parse("127.0.0.1");
 
 			TcpServer server = new TcpServer (config);
 			ServerManager manager = new ServerManager (server);

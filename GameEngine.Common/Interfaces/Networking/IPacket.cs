@@ -9,8 +9,8 @@ namespace GameEngine.Common.Interfaces.Networking
 {
     public interface IPacket
     {
-        EndPoint Source { get; set; }
-        EndPoint Destination { get; set; }
+        IPEndPoint Source { get; set; }
+        IPEndPoint Destination { get; set; }
         IPackage Package { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace GameEngine.Core.Networking.TCP
 {
     public class TcpPacket : IPacket
     {        
-        public EndPoint Source { get; set; }
-        public EndPoint Destination { get; set; }
+        public IPEndPoint Source { get; set; }
+        public IPEndPoint Destination { get; set; }
         public IPackage Package { get; set; }
 
         public TcpPacket()

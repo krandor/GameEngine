@@ -23,8 +23,8 @@ namespace GameEngine.Core.Networking.TCP
 
 		public event NetworkHandlers.ConnectionHandler OnConnect;
 		public event NetworkHandlers.ConnectionHandler OnDisconnect;
-		public event NetworkHandlers.ConnectionHandler OnMessageRecieved;
-		public event NetworkHandlers.ConnectionHandler OnMessageSent;
+		public event NetworkHandlers.MessageHandler OnMessageRecieved;
+		public event NetworkHandlers.MessageHandler OnMessageSent;
 
         public TcpServer(IConfiguration sConfig)
         {
@@ -40,7 +40,15 @@ namespace GameEngine.Core.Networking.TCP
             while (_running)
             {
                 TcpClient client = tcpListener.AcceptTcpClient();
-				//OnConnect (client);
+
+				TcpConnection connection = new TcpConnection{
+					ConnectedAt = DateTime.Now,
+					Source = (IPEndPoint)client.Client.RemoteEndPoint,
+					Client = client
+				};
+
+				OnConnect (connection);
+
                 Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
 				clientThread.Start(client);
             }
@@ -64,6 +72,9 @@ namespace GameEngine.Core.Networking.TCP
                 try
                 {
 					bytesRead = clientStream.Read(message, 0, tcpClient.ReceiveBufferSize);
+
+					//clientStream.Write(message,0, tcpClient.ReceiveBufferSize);
+
 					strMessage = encoder.GetString(message, 0, bytesRead);
 					//Console.WriteLine("Read Message from Stream: " + strMessage);
                 }
@@ -80,8 +91,8 @@ namespace GameEngine.Core.Networking.TCP
 				{
 					TcpPacket packet = new TcpPacket
 					{
-						Source = tcpClient.Client.RemoteEndPoint,
-						Destination = tcpClient.Client.LocalEndPoint,
+						Source = (IPEndPoint)tcpClient.Client.RemoteEndPoint,
+						Destination = (IPEndPoint)tcpClient.Client.LocalEndPoint,
 						Package = new TcpPackage
 						{
 							Contents = strMessage,
@@ -89,11 +100,7 @@ namespace GameEngine.Core.Networking.TCP
 						}
 					};
 
-					TcpConnection connection = new TcpConnection();
-					connection.ConnectedAt = DateTime.Now;
-					connection.Message = packet;
-
-					OnMessageRecieved (connection);
+					OnMessageRecieved (packet);
 				}
             }
         }

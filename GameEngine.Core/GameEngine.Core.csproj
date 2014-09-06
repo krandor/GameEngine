@@ -11,6 +11,8 @@
     <AssemblyName>GameEngine.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameEngine.Common\GameEngine.Common.csproj">
-      <Project>{314fb35c-c6e0-464b-a2df-87393957d406}</Project>
+      <Project>{314FB35C-C6E0-464B-A2DF-87393957D406}</Project>
       <Name>GameEngine.Common</Name>
     </ProjectReference>
   </ItemGroup>

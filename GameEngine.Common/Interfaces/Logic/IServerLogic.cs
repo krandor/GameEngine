@@ -11,10 +11,5 @@ namespace GameEngine.Common.Interfaces.Logic
     public interface IServerLogic
     {
         IServerManager ServerManager { get; set; }
-		IConfiguration ServerConfiguration { get; set; }
-		void OnMessageSent(IConnection connection);
-		void OnMessageRecieved(IConnection connection);
-        void OnDisconnect(IConnection connection);
-        void OnConnect(IConnection connection);
     }
 }

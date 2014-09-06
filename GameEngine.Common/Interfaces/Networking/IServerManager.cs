@@ -13,9 +13,5 @@ namespace GameEngine.Common.Interfaces.Networking
 
         void StartListener();
         void StopListener();        
-        event NetworkHandlers.ConnectionHandler OnConnect;
-        event NetworkHandlers.ConnectionHandler OnDisconnect;
-		event NetworkHandlers.ConnectionHandler OnMessageRecieved;
-		event NetworkHandlers.ConnectionHandler OnMessageSent;
     }
 }

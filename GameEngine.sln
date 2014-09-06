@@ -7,24 +7,39 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine.Core", "GameEngi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine.Logic", "GameEngine.Logic\GameEngine.Logic.csproj", "{108FB7DF-4C61-4738-B8ED-2CCF9F880ABD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine.TestHarness.Server", "GameEngine.TestHarness.Server\GameEngine.TestHarness.Server.csproj", "{377D7983-6D7B-4A51-88E2-2CCE52E23418}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine.TestHarness.Client", "GameEngine.TestHarness.Client\GameEngine.TestHarness.Client.csproj", "{9590EF83-A369-40AA-A8C9-12FE4A87B1DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{314FB35C-C6E0-464B-A2DF-87393957D406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{314FB35C-C6E0-464B-A2DF-87393957D406}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{314FB35C-C6E0-464B-A2DF-87393957D406}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{314FB35C-C6E0-464B-A2DF-87393957D406}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Release|Any CPU.Build.0 = Release|Any CPU
 		{108FB7DF-4C61-4738-B8ED-2CCF9F880ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{108FB7DF-4C61-4738-B8ED-2CCF9F880ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{108FB7DF-4C61-4738-B8ED-2CCF9F880ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{108FB7DF-4C61-4738-B8ED-2CCF9F880ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{314FB35C-C6E0-464B-A2DF-87393957D406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{314FB35C-C6E0-464B-A2DF-87393957D406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{314FB35C-C6E0-464B-A2DF-87393957D406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{314FB35C-C6E0-464B-A2DF-87393957D406}.Release|Any CPU.Build.0 = Release|Any CPU
+		{377D7983-6D7B-4A51-88E2-2CCE52E23418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{377D7983-6D7B-4A51-88E2-2CCE52E23418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{377D7983-6D7B-4A51-88E2-2CCE52E23418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{377D7983-6D7B-4A51-88E2-2CCE52E23418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9590EF83-A369-40AA-A8C9-12FE4A87B1DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9590EF83-A369-40AA-A8C9-12FE4A87B1DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9590EF83-A369-40AA-A8C9-12FE4A87B1DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9590EF83-A369-40AA-A8C9-12FE4A87B1DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF509B71-BF13-47C6-8B8B-6AB964F5B793}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = GameEngine.TestHarness.Server\GameEngine.TestHarness.Server.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

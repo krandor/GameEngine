@@ -9,20 +9,27 @@ using System.Threading.Tasks;
 using GameEngine.Common.Interfaces.Logic;
 using GameEngine.Common.Interfaces.Networking;
 using GameEngine.Common.Networking;
+using GameEngine.Common.Interfaces.Configuration;
+using GameEngine.Common.EventHandlers.Networking;
 
 namespace GameEngine.Core.Networking.TCP
 {
     public class TcpServer : IServer
     {
-        IServerLogic _sLogic;
+        IConfiguration _sConfiguration;
         TcpListener tcpListener;
         Thread listenThread;
         static bool _running;
 
-        public TcpServer(IServerLogic sLogic)
+		public event NetworkHandlers.ConnectionHandler OnConnect;
+		public event NetworkHandlers.ConnectionHandler OnDisconnect;
+		public event NetworkHandlers.ConnectionHandler OnMessageRecieved;
+		public event NetworkHandlers.ConnectionHandler OnMessageSent;
+
+        public TcpServer(IConfiguration sConfig)
         {
-            _sLogic = sLogic;
-            tcpListener = new TcpListener(IPAddress.Any, 3000);
+            _sConfiguration = sConfig;
+            tcpListener = new TcpListener(_sConfiguration.IP, _sConfiguration.Port);
             listenThread = new Thread(new ThreadStart(StartListening));
         }
 
@@ -33,6 +40,7 @@ namespace GameEngine.Core.Networking.TCP
             while (_running)
             {
                 TcpClient client = tcpListener.AcceptTcpClient();
+				//OnConnect (client);
                 Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
 				clientThread.Start(client);
             }
@@ -45,14 +53,19 @@ namespace GameEngine.Core.Networking.TCP
 
             NetworkStream clientStream = tcpClient.GetStream();
             int bytesRead;
-            byte[] message = new byte[4096];
-            StringBuilder stringMessage = new StringBuilder();
+            byte[] message = new byte[tcpClient.ReceiveBufferSize];
+           
+			ASCIIEncoding encoder = new ASCIIEncoding();
+
             while (true)
             {
                 bytesRead = 0;
+				string strMessage = "";
                 try
                 {
-                    bytesRead = clientStream.Read(message, 0, 4096);
+					bytesRead = clientStream.Read(message, 0, tcpClient.ReceiveBufferSize);
+					strMessage = encoder.GetString(message, 0, bytesRead);
+					//Console.WriteLine("Read Message from Stream: " + strMessage);
                 }
                 catch
                 {
@@ -61,30 +74,27 @@ namespace GameEngine.Core.Networking.TCP
                 }
 
                 if (bytesRead == 0)
-                    break;
-
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                stringMessage.Append(encoder.GetString(message, 0, bytesRead));
-            }
-
-            if (!error)
-            {
-				TcpPacket packet = new TcpPacket
+                    break;                
+               
+				if (!error)
 				{
-					Source = tcpClient.Client.RemoteEndPoint,
-					Destination = tcpClient.Client.LocalEndPoint,
-					Package = new TcpPackage
+					TcpPacket packet = new TcpPacket
 					{
-						Contents = stringMessage.ToString(),
-						Size = stringMessage.Length
-					}
-				};
+						Source = tcpClient.Client.RemoteEndPoint,
+						Destination = tcpClient.Client.LocalEndPoint,
+						Package = new TcpPackage
+						{
+							Contents = strMessage,
+							Size = strMessage.Length
+						}
+					};
 
-                TcpConnection connection = new TcpConnection();
-				connection.ConnectedAt = DateTime.Now;
-				connection.Message = packet;
-				_sLogic.OnConnect(connection);
-				_sLogic.OnMessageRecieved(connection);
+					TcpConnection connection = new TcpConnection();
+					connection.ConnectedAt = DateTime.Now;
+					connection.Message = packet;
+
+					OnMessageRecieved (connection);
+				}
             }
         }
 

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{377D7983-6D7B-4A51-88E2-2CCE52E23418}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>GameEngine.TestHarness.Server</RootNamespace>
+    <AssemblyName>GameEngine.TestHarness.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\GameEngine.Core\GameEngine.Core.csproj">
+      <Project>{EF509B71-BF13-47C6-8B8B-6AB964F5B793}</Project>
+      <Name>GameEngine.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameEngine.Common\GameEngine.Common.csproj">
+      <Project>{314FB35C-C6E0-464B-A2DF-87393957D406}</Project>
+      <Name>GameEngine.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameEngine.Logic\GameEngine.Logic.csproj">
+      <Project>{108FB7DF-4C61-4738-B8ED-2CCF9F880ABD}</Project>
+      <Name>GameEngine.Logic</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

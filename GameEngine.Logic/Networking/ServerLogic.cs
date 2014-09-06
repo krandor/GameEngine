@@ -12,46 +12,22 @@ namespace GameEngine.Logic.Networking
     public class ServerLogic : IServerLogic
     {
         public IServerManager ServerManager { get; set; }
-		public IConfiguration ServerConfiguration { get; set;}
       
         public ServerLogic(IServerManager manager)
         {
-            ServerManager = manager;           
-
-			ServerManager.OnConnect += OnConnect;
-			ServerManager.OnDisconnect += OnDisconnect;
-			ServerManager.OnMessageRecieved += OnMessageRecieved;
-			ServerManager.OnMessageSent += OnMessageSent;
-
+            ServerManager = manager;
         }
 
-		public void OnMessageSent(IConnection connection)
-        {
-            
-        }
+		public void StartServer()
+		{
+			//TODO: add error handling
+			ServerManager.StartListener ();
+		}
 
-		public void OnMessageRecieved(IConnection connection)
-        {
-            
-        }
-
-        public void OnDisconnect(IConnection connection)
-        {
-			var connectionsToRemove = ServerManager.Connections.Where(c => c.Message.Source == connection.Message.Source).ToList();
-			foreach (var conn in connectionsToRemove) 
-			{
-				ServerManager.Connections.Remove(conn);
-			}
-        }
-
-        public void OnConnect(IConnection connection)
-        {
-			if (!ServerManager.Connections.Where (c => c.Message.Source == connection.Message.Source).Any ()) 
-			{
-				ServerManager.Connections.Add (connection);
-			}
-        }
-
-
+		public void StopServer()
+		{
+			//TODO: add error handling
+			ServerManager.StopListener ();
+		}
     }
 }
